@@ -1,10 +1,12 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, Image, Button, Alert } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native'
 import { AboutUs, Progress, Settings, Start, Exercise } from "./src/screens"
+import {Picker} from "@react-native-picker/picker";
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -16,7 +18,7 @@ function MyDrawer({ navigation }) {
 
         <Drawer.Screen name="Приложение" component={Entry} />
         <Drawer.Screen name="Прогресс" component={Progress} />
-        <Drawer.Screen name="Настройки" component={Settings} />
+        <Drawer.Screen name="Уведомления" component={Settings} />
         <Drawer.Screen name="О нас" component={AboutUs} />
 
       </Drawer.Navigator>

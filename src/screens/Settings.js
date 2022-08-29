@@ -4,7 +4,6 @@ import { View, Text } from 'react-native';
 const Settings = ()=>{
     return(
         <View>
-            <Text> Настройки</Text>
             <Text> Напоминания:</Text>
             <Text> - Напомнить о тренировке, вкл/вкл</Text>
             <Text> - - Дни тренировки</Text>

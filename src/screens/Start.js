@@ -1,20 +1,50 @@
 import React, {useState} from 'react';
-import {View, Text, Picker, Button} from 'react-native';
+import {View, Text, Button} from 'react-native';
+import {Picker} from "@react-native-picker/picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 function Start({navigation}) {
     const [selectedValue, setSelectedValue] = useState("1");
+
+    const [getValue, setGetValue] = useState(0);
+    const [getValue2, setGetValue2] = useState(0);
+    const [getValue3, setGetValue3] = useState(0);
+    // Function to get the value from AsyncStorage
+    AsyncStorage.getItem('any_key_here').then(
+        (value) =>
+            // AsyncStorage returns a promise
+            // Adding a callback to get the value
+            setGetValue(value),
+        // Setting the value in Text
+    );
+    AsyncStorage.getItem('any_key_here_2').then(
+        (value) =>
+            // AsyncStorage returns a promise
+            // Adding a callback to get the value
+            setGetValue2(value),
+        // Setting the value in Text
+    );
+    AsyncStorage.getItem('any_key_here_3').then(
+        (value) =>
+            // AsyncStorage returns a promise
+            // Adding a callback to get the value
+            setGetValue3(value),
+        // Setting the value in Text
+    );
     return (
         <View style={{flex: 1,justifyContent:'space-evenly',alignItems:'center', }}>
             <Text>Выберите упражнения:</Text>
-            <View style={{flexDirection:'row', }}>
+            <View style={{flexDirection:'column'}}>
                 <Picker
                     selectedValue={selectedValue}
-                    style={{marginRight: 10}}
+                    // style={{marginRight: 10, height: 30,
+                    //     weight: 100}}
                     onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                 >
-                    <Picker.Item label="Упражнения 1" value='1'/>
-                    <Picker.Item label="Упражнения 2" value='2'/>
-                    <Picker.Item label="Епражнения 3" value='3'/>
+                    <Picker.Item label="Тренировка на стуле (вариант 1)" value='1'/>
+                    <Picker.Item label="Тренировка на стуле (вариант 2)" value='2'/>
+                    <Picker.Item label="Тренировка стоя" value='3'/>
 
                 </Picker>
                 <Button
@@ -27,6 +57,9 @@ function Start({navigation}) {
                         })
                     }
                 />
+                <Text>
+                    {getValue} -- {getValue2} -- {getValue3}
+                </Text>
             </View>
 
         </View>

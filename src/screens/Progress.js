@@ -1,19 +1,41 @@
 import React, {useState} from 'react';
 import {View, Text, Pressable, StyleSheet, Image, Button} from 'react-native';
 import {exercises} from '../exercises';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Progress = () => {
-
+    const [getValue, setGetValue] = useState(0);
+    const [getValue2, setGetValue2] = useState(0);
+    const [getValue3, setGetValue3] = useState(0);
+    // Function to get the value from AsyncStorage
+    AsyncStorage.getItem('any_key_here').then(
+        (value) =>
+            // AsyncStorage returns a promise
+            // Adding a callback to get the value
+            setGetValue(value),
+        // Setting the value in Text
+    );
+    AsyncStorage.getItem('any_key_here_2').then(
+        (value) =>
+            // AsyncStorage returns a promise
+            // Adding a callback to get the value
+            setGetValue2(value),
+        // Setting the value in Text
+    );
+    AsyncStorage.getItem('any_key_here_3').then(
+        (value) =>
+            // AsyncStorage returns a promise
+            // Adding a callback to get the value
+            setGetValue3(value),
+        // Setting the value in Text
+    );
     return (
         <View>
             <Text> Статистика:</Text>
-            <Text> - Всего выполнено кругов: </Text>
-            <Text> - Всего отработано времени: </Text>
-            <Text> Все упражнения:</Text>
-            <Text> 1. Наклоны головы, выполнено</Text>
-            <Text> </Text>
-            <Text> </Text>
-
+            <Text> - Всего выполнено кругов: {parseInt(getValue)+ parseInt(getValue2)+parseInt(getValue3)}</Text>
+            <Text> -- Выполнено тренировок на стуле (вариант 1): {parseInt(getValue)} </Text>
+            <Text> -- Выполнено тренировок на стуле (вариант 2): {parseInt(getValue2)} </Text>
+            <Text> -- Выполнено тренировок стоя: {parseInt(getValue3)} </Text>
 
         </View>
     )

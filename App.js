@@ -1,12 +1,10 @@
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
-import { View, Text, Image, Button, Alert } from 'react-native';
+import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native'
 import { AboutUs, Progress, Settings, Start, Exercise } from "./src/screens"
 import {Picker} from "@react-native-picker/picker";
-
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -25,6 +23,22 @@ function MyDrawer({ navigation }) {
   );
 }
 
+export default function App() {
+    return (
+        <NavigationContainer>
+            <MyDrawer />
+        </NavigationContainer>
+    );
+}
+
+function Entry() {
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Start" component={Start} />
+            <Stack.Screen name="Exercise" component={Exercise} />
+        </Stack.Navigator>
+    );
+}
 /*
 <Drawer.Screen name="Приложение" component={Start} />
 <Drawer.Screen name="Тестовый вход" component={MyStartStreen} />
@@ -99,22 +113,7 @@ function ProfileScreen({ navigation }) {
 }
 */
 
-export default function App() {
-  return (
-      <NavigationContainer>
-        <MyDrawer />
-      </NavigationContainer>
-  );
-}
 
-function Entry() {
-  return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Start" component={Start} />
-        <Stack.Screen name="Exercise" component={Exercise} />
-      </Stack.Navigator>
-  );
-}
 /*
 function Start({ navigation }) {
   return (

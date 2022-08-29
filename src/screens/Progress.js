@@ -1,33 +1,21 @@
 import React, {useState} from 'react';
-import {View, Text, Pressable, StyleSheet, Image, Button} from 'react-native';
-import {exercises} from '../exercises';
+import {View, Text} from 'react-native';
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Progress = () => {
     const [getValue, setGetValue] = useState(0);
     const [getValue2, setGetValue2] = useState(0);
     const [getValue3, setGetValue3] = useState(0);
-    // Function to get the value from AsyncStorage
+
     AsyncStorage.getItem('any_key_here').then(
-        (value) =>
-            // AsyncStorage returns a promise
-            // Adding a callback to get the value
-            setGetValue(value),
-        // Setting the value in Text
+        (value) => setGetValue(value),
     );
     AsyncStorage.getItem('any_key_here_2').then(
-        (value) =>
-            // AsyncStorage returns a promise
-            // Adding a callback to get the value
-            setGetValue2(value),
-        // Setting the value in Text
+        (value) => setGetValue2(value),
     );
     AsyncStorage.getItem('any_key_here_3').then(
-        (value) =>
-            // AsyncStorage returns a promise
-            // Adding a callback to get the value
-            setGetValue3(value),
-        // Setting the value in Text
+        (value) => setGetValue3(value),
     );
     return (
         <View>

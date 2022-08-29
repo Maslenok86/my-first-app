@@ -10,32 +10,20 @@ function Start({navigation}) {
     const [getValue, setGetValue] = useState(0);
     const [getValue2, setGetValue2] = useState(0);
     const [getValue3, setGetValue3] = useState(0);
-    // Function to get the value from AsyncStorage
+
     AsyncStorage.getItem('any_key_here').then(
-        (value) =>
-            // AsyncStorage returns a promise
-            // Adding a callback to get the value
-            setGetValue(value),
-        // Setting the value in Text
+        (value) => setGetValue(value),
     );
     AsyncStorage.getItem('any_key_here_2').then(
-        (value) =>
-            // AsyncStorage returns a promise
-            // Adding a callback to get the value
-            setGetValue2(value),
-        // Setting the value in Text
+        (value) => setGetValue2(value),
     );
     AsyncStorage.getItem('any_key_here_3').then(
-        (value) =>
-            // AsyncStorage returns a promise
-            // Adding a callback to get the value
-            setGetValue3(value),
-        // Setting the value in Text
+        (value) => setGetValue3(value),
     );
     return (
-        <View style={{flex: 1,justifyContent:'space-evenly',alignItems:'center', }}>
+        <View style={{flex: 1, justifyContent: 'space-evenly', alignItems: 'center',}}>
             <Text>Выберите упражнения:</Text>
-            <View style={{flexDirection:'column'}}>
+            <View style={{flexDirection: 'column'}}>
                 <Picker
                     selectedValue={selectedValue}
                     // style={{marginRight: 10, height: 30,
@@ -57,9 +45,12 @@ function Start({navigation}) {
                         })
                     }
                 />
+                {/*
                 <Text>
                     {getValue} -- {getValue2} -- {getValue3}
                 </Text>
+                */}
+
             </View>
 
         </View>

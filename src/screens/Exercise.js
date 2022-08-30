@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
-import {
-    View, SafeAreaView, StyleSheet, Text, Button, Image, Modal, Alert,
-} from 'react-native';
+import {View, SafeAreaView, Text, Button, Image, Alert} from 'react-native';
 import {exercises} from '../exercises';
 import {Timer} from 'react-native-stopwatch-timer';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import rington from '../sounds/rington.mp3';
 import fanfar from '../sounds/fanfar.mp3'
-
 
 function Exercise({route, navigation}) {
     const {selectedValue} = route.params;
@@ -24,41 +21,33 @@ function Exercise({route, navigation}) {
     const [getValue2, setGetValue2] = useState("0");
     const [getValue3, setGetValue3] = useState("0");
 
-    /*
-    const [modalVisible, setModalVisible] = useState(false);
-    let [timesPressed, setTimesPressed] = useState(0);
-    const [isStopwatchStart, setIsStopwatchStart] = useState(false);
-    const [resetStopwatch, setResetStopwatch] = useState(false);
-     */
-    /*let audioFanfar = new Audio(fanfar);
+    let audioFanfar = new Audio(fanfar);
+    let audioRington = new Audio(rington);
 
     const startFanFar = () => {
         audioFanfar.play();
     }
-
-    let audioRington = new Audio(rington);
-
     const startRington = () => {
         audioRington.play();
-        //console.log(audioRington);
-    }*/
+    }
+
     const descriptionAlert = () =>
         Alert.alert(
             "Описание упражнения",
             exercises[timesPressed].description,
             [{text: "OK"}]
         );
-
     const congratulationsAlert = () =>
         Alert.alert(
             "Позравляем!",
             "Вы прошли круг упражнений!",
-            [{text: "OK", onPress: () => console.log("OK Pressed")}]
+            [{text: "OK"}]
         );
 
     function updateCircle() {
         if (timesPressed != endExercise) {
             setTimesPressed((current) => (current + 1));
+            startRington();
         } else {
             if (selectedValue == 1) {
                 AsyncStorage.getItem('any_key_here').then(
@@ -77,6 +66,7 @@ function Exercise({route, navigation}) {
                 AsyncStorage.setItem('any_key_here_3', (parseInt(getValue3) + 1).toString());
             }
             congratulationsAlert();
+            startFanFar();
             navigation.dispatch(navigation.goBack);
         }
     }
@@ -90,6 +80,7 @@ function Exercise({route, navigation}) {
     AsyncStorage.getItem('any_key_here_3').then(
         (value) => setGetValue3(value),
     );
+
     return (
         <View style={{flexDirection: 'column', justifyContent: 'space-between'}}>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -120,7 +111,7 @@ function Exercise({route, navigation}) {
                                style={{width: 200, height: 200, margin: 10}}/>
                         <Text style={{textAlign: 'center', fontSize: 16}}> {exercises[timesPressed].advice}</Text>
                     </View>
-                    {
+                    {/*
                         <Button
                             title="Пропустить упражнение"
                             onPress={() => {
@@ -130,8 +121,7 @@ function Exercise({route, navigation}) {
                                 setResetTimer(true);
                             }}
                         />
-
-                    }
+                    */}
                     <View style={{width: 140, alignSelf: 'center', margin: 10}}>
                         <SafeAreaView>
                             <Timer
@@ -180,35 +170,3 @@ const timerOptions = {
 
     },
 };
-
-
-/*
-
-                        <TouchableHighlight
-                            onPress={() => {
-                                setIsTimerStart(false);
-                                setResetTimer(true);
-                            }}>
-                            <Text style={styles.buttonText}>RESET</Text>
-                        </TouchableHighlight>
- */
-
-/*
-<Button title={"Click me"}
-                        onPress={() => {
-                            setTimesPressed((current) => current + 1);
-                        }}
-                >
-                </Button>
- */
-/*
-<Button
-                title="Вернуться назад"
-                onPress={navigation.goBack}
-            />
-{
-                exercises.map(exer => (
-                    <Text> {exer.name}</Text>
-                ))
-            }
-*/

@@ -11,4 +11,5 @@ const AboutUs = () => {
         </View>
     )
 }
+
 export default AboutUs;

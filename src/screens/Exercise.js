@@ -5,6 +5,9 @@ import {
 import {exercises} from '../exercises';
 import {Timer} from 'react-native-stopwatch-timer';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import rington from '../sounds/rington.mp3';
+import fanfar from '../sounds/fanfar.mp3'
+import style from '../styles/style.css';
 
 function Exercise({route, navigation}) {
     const {selectedValue} = route.params;
@@ -13,7 +16,7 @@ function Exercise({route, navigation}) {
     let [endExercise] = useState((selectedValue == 1) ? 16 : ((selectedValue == 2) ? 33 : 50))
 
     const [isTimerStart, setIsTimerStart] = useState(false);
-    const [timerDuration, setTimerDuration] = useState(60000);
+    const [timerDuration, setTimerDuration] = useState(2000);
     const [resetTimer, setResetTimer] = useState(false);
 
     // To get the value from the TextInput
@@ -30,7 +33,16 @@ function Exercise({route, navigation}) {
     const [isStopwatchStart, setIsStopwatchStart] = useState(false);
     const [resetStopwatch, setResetStopwatch] = useState(false);
      */
+    let audioFanfar = new Audio(fanfar);
+    const startFanFar = () => {
+        audioFanfar.play();
+    }
 
+    let audioRington = new Audio(rington);
+    const startRington = () => {
+        audioRington.play();
+        //console.log(audioRington);
+    }
     const createTwoButtonAlert = () =>
         Alert.alert(
             "Описание упражнения",
@@ -88,82 +100,118 @@ function Exercise({route, navigation}) {
                 <Button
                     title="Об упражнении"
                     onPress={createTwoButtonAlert}
+                    //onPress={startRington}
                 />
             </View>
 
-            <View style={{alignItems: 'center', justifyContent: 'space-evenly'}}>
-                <Text> {exercises[timesPressed].name}</Text>
-                <Text testID="pressable_press_console">{timesPressed}</Text>
-                <Image source={{uri: exercises[timesPressed].gif}}
-                       style={{
-                           width: 200,
-                           height: 200
-                       }}/>
-                <Text> {exercises[timesPressed].advice}</Text>
-                <Button
-                    title="Следующее упражнение справа"
-                    onPress={() => {
-                        if (timesPressed != endExercise) {
-                            setTimesPressed((current) => (current + 1));
-                        } else {
-                            {
-                                if (selectedValue == 1) {
-                                    AsyncStorage.getItem('any_key_here').then(
-                                        (value) => setGetValue(value),
-                                    );
-                                    AsyncStorage.setItem('any_key_here', parseInt(getValue) + 1);
-                                } else if (selectedValue == 2) {
-                                    AsyncStorage.getItem('any_key_here_2').then(
-                                        (value) => setGetValue2(value),
-                                    );
-                                    AsyncStorage.setItem('any_key_here_2', parseInt(getValue2) + 1);
-                                } else if (selectedValue == 3) {
-                                    AsyncStorage.getItem('any_key_here_3').then(
-                                        (value) => setGetValue3(value),
-                                    );
-                                    AsyncStorage.setItem('any_key_here_3', parseInt(getValue3) + 1);
-                                }
-                            }
-                            navigation.dispatch(navigation.goBack);
-                        }
-                    }
-                    }
-                />
-                <SafeAreaView>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                        <Timer
-                            totalDuration={timerDuration}
-                            start={isTimerStart}
-                            reset={resetTimer}
-                            options={options}
-                            handleFinish={() => {
-                                //alert('Custom Completion Function');
-                                setTimesPressed((current) => current + 1);
-                                setIsTimerStart(false);
-                                setResetTimer(true);
-                            }}
-                            // Can call a function On finish of the time
-                            getTime={(time) => {
-                                //console.log(time);
-                            }}
-                        />
-                        <Button
-                            title={!isTimerStart ? 'START' : 'STOP'}
-                            onPress={() => {
-                                setIsTimerStart(!isTimerStart);
-                                setResetTimer(false);
-                            }}
-                            style={{marginLeft: 10}}
-                            color='#ff843d'>
-                        </Button>
+            <View style={{display: 'flex', alignSelf: 'center', justifyContent: 'space-evenly'}}>
+                <div className='container'>
+                    <div className='wrapper'>
+                        <Text style={{textAlign: 'center', fontSize: 16}}> {exercises[timesPressed].name}</Text>
+                        <Text testID="pressable_press_console">{timesPressed}</Text>
+                        <Image source={{uri: exercises[timesPressed].gif}}
+                               style={{
+                                   width: 200,
+                                   height: 200
+                               }}/>
+                        <Text style={{textAlign: 'center', fontSize: 16}}> {exercises[timesPressed].advice}</Text>
+                    </div>
 
-                        {/*
+                    <Button
+
+                        className='button'
+                        title="Следующее упражнение справа"
+                        onPress={() => {
+                            if (timesPressed != endExercise) {
+                                setTimesPressed((current) => (current + 1));
+                            } else {
+                                {
+                                    if (selectedValue == 1) {
+                                        AsyncStorage.getItem('any_key_here').then(
+                                            (value) => setGetValue(value),
+                                        );
+                                        AsyncStorage.setItem('any_key_here', parseInt(getValue) + 1);
+                                    } else if (selectedValue == 2) {
+                                        AsyncStorage.getItem('any_key_here_2').then(
+                                            (value) => setGetValue2(value),
+                                        );
+                                        AsyncStorage.setItem('any_key_here_2', parseInt(getValue2) + 1);
+                                    } else if (selectedValue == 3) {
+                                        AsyncStorage.getItem('any_key_here_3').then(
+                                            (value) => setGetValue3(value),
+                                        );
+                                        AsyncStorage.setItem('any_key_here_3', parseInt(getValue3) + 1);
+                                    }
+                                }
+                                navigation.dispatch(navigation.goBack);
+                            }
+                        }
+                        }
+                    />
+                    <div className='button-wrapper'>
+                        <SafeAreaView>
+                            <Timer
+                                totalDuration={timerDuration}
+                                start={isTimerStart}
+                                reset={resetTimer}
+                                options={options}
+                                handleFinish={() => {
+                                    //alert('Custom Completion Function');
+                                    //setTimesPressed((current) => current + 1);
+                                    if (timesPressed != endExercise) {
+                                        setTimesPressed((current) => (current + 1));
+                                        audioRington.play();
+                                    } else {
+                                        {
+                                            if (selectedValue == 1) {
+                                                AsyncStorage.getItem('any_key_here').then(
+                                                    (value) => setGetValue(value),
+                                                );
+                                                AsyncStorage.setItem('any_key_here', parseInt(getValue) + 1);
+                                            } else if (selectedValue == 2) {
+                                                AsyncStorage.getItem('any_key_here_2').then(
+                                                    (value) => setGetValue2(value),
+                                                );
+                                                AsyncStorage.setItem('any_key_here_2', parseInt(getValue2) + 1);
+                                            } else if (selectedValue == 3) {
+                                                AsyncStorage.getItem('any_key_here_3').then(
+                                                    (value) => setGetValue3(value),
+                                                );
+                                                AsyncStorage.setItem('any_key_here_3', parseInt(getValue3) + 1);
+                                            }
+                                        }
+                                        audioFanfar.play();
+                                        navigation.dispatch(navigation.goBack);
+                                    }
+                                    setIsTimerStart(false);
+                                    setResetTimer(true);
+                                    audioRington.play();
+                                }}
+                                // Can call a function On finish of the time
+                                getTime={(time) => {
+                                    //console.log(time);
+                                }}
+                            />
+
+                            <Button
+                                title={!isTimerStart ? 'START' : 'STOP'}
+                                onPress={() => {
+                                    setIsTimerStart(!isTimerStart);
+                                    setResetTimer(false);
+                                }}
+                                style={{marginLeft: 10}}
+                                color='#ff843d'>
+                            </Button>
+
+                            {/*
                         <Text style={styles1.textStyle}>
                             {getValue} --{getValue2} -- {getValue3}
                         </Text>
                         */}
-                    </View>
-                </SafeAreaView>
+
+                        </SafeAreaView>
+                    </div>
+                </div>
             </View>
         </View>
     );
@@ -175,14 +223,16 @@ const options = {
     container: {
         backgroundColor: '#2e93f2',
         padding: 5,
-        borderRadius: 5,
-        width: 200,
+        borderRadius: 2,
+        width: 120,
         alignItems: 'center',
     },
     text: {
+        alignSelf: 'center',
         fontSize: 25,
         color: '#FFF',
         marginLeft: 7,
+
     },
 };
 

@@ -4,9 +4,9 @@ import {View, Text} from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Progress = () => {
-    const [getValue, setGetValue] = useState(0);
-    const [getValue2, setGetValue2] = useState(0);
-    const [getValue3, setGetValue3] = useState(0);
+    const [getValue, setGetValue] = useState("0");
+    const [getValue2, setGetValue2] = useState("0");
+    const [getValue3, setGetValue3] = useState("0");
 
     AsyncStorage.getItem('any_key_here').then(
         (value) => setGetValue(value),
@@ -18,13 +18,14 @@ const Progress = () => {
         (value) => setGetValue3(value),
     );
     return (
-        <View>
-            <Text> Статистика:</Text>
-            <Text> - Всего выполнено кругов: {parseInt(getValue)+ parseInt(getValue2)+parseInt(getValue3)}</Text>
-            <Text> -- Выполнено тренировок на стуле (вариант 1): {parseInt(getValue)} </Text>
-            <Text> -- Выполнено тренировок на стуле (вариант 2): {parseInt(getValue2)} </Text>
-            <Text> -- Выполнено тренировок стоя: {parseInt(getValue3)} </Text>
-
+        <View style={{margin: 10}}>
+            <Text style={{fontSize: 16, lineHeight:25}}>
+                Статистика:{"\n"}
+                Всего выполнено кругов: {parseInt(getValue) + parseInt(getValue2) + parseInt(getValue3)}{"\n"}
+                Выполнено тренировок на стуле (вариант 1):{"\n"}{parseInt(getValue)}{"\n"}
+                Выполнено тренировок на стуле (вариант 2): {"\n"}{parseInt(getValue2)}{"\n"}
+                Выполнено тренировок стоя: {"\n"}{parseInt(getValue3)}
+            </Text>
         </View>
     )
 }

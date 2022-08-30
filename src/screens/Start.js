@@ -6,11 +6,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Start({navigation}) {
     const [selectedValue, setSelectedValue] = useState("1");
-
+    /*
     const [getValue, setGetValue] = useState(0);
     const [getValue2, setGetValue2] = useState(0);
     const [getValue3, setGetValue3] = useState(0);
-
+    */
+    /*
     AsyncStorage.getItem('any_key_here').then(
         (value) => setGetValue(value),
     );
@@ -19,22 +20,23 @@ function Start({navigation}) {
     );
     AsyncStorage.getItem('any_key_here_3').then(
         (value) => setGetValue3(value),
-    );
-    return (
-        <View style={{flex: 1, justifyContent: 'space-evenly', alignItems: 'center',}}>
-            <Text>Выберите упражнения:</Text>
-            <View style={{flexDirection: 'column'}}>
-                <Picker
-                    selectedValue={selectedValue}
-                    // style={{marginRight: 10, height: 30,
-                    //     weight: 100}}
-                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                >
-                    <Picker.Item label="Тренировка на стуле (вариант 1)" value='1'/>
-                    <Picker.Item label="Тренировка на стуле (вариант 2)" value='2'/>
-                    <Picker.Item label="Тренировка стоя" value='3'/>
+    );*/
 
-                </Picker>
+    return (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+            <Text style={{fontSize: 16}}>Выберите упражнения:</Text>
+
+            <Picker
+                selectedValue={selectedValue}
+                style={{width: 310, textAlign: 'center', margin: 10}}
+                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+            >
+                <Picker.Item label="Тренировка на стуле (вариант 1)" value='1'/>
+                <Picker.Item label="Тренировка на стуле (вариант 2)" value='2'/>
+                <Picker.Item label="Тренировка стоя" value='3'/>
+
+            </Picker>
+            <View style={{width: 140}}>
                 <Button
                     title="Начать"
                     color='#ff843d'
@@ -44,16 +46,18 @@ function Start({navigation}) {
                             params: {selectedValue},
                         })
                     }
+
                 />
-                {/*
+            </View>
+
+            {/*
                 <Text>
                     {getValue} -- {getValue2} -- {getValue3}
                 </Text>
                 */}
-
-            </View>
-
         </View>
+
+
     );
 }
 

@@ -3,20 +3,19 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native'
-import { AboutUs, Progress, Settings, Start, Exercise } from "./src/screens"
-import {Picker} from "@react-native-picker/picker";
+import { AboutUs, Progress, Start, Exercise } from "./src/screens"
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 function MyDrawer({ navigation }) {
+
   return (
 
       <Drawer.Navigator useLegacyImplementation initialRouteName="Приложение">
-
         <Drawer.Screen name="Приложение" component={Entry} />
         <Drawer.Screen name="Прогресс" component={Progress} />
-        <Drawer.Screen name="Уведомления" component={Settings} />
         <Drawer.Screen name="О нас" component={AboutUs} />
 
       </Drawer.Navigator>
